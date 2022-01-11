@@ -40,10 +40,14 @@ jobs:
         grep -RiIl '{{Package}}' | xargs sed -i 's/{{Package}}/${{ steps.description.outputs.package }}/g'
      
     - name: Fix README.md
-      run: |
-    
+      run: echo "Hello"
+      
+    - name: Add project reference
+      if: ${{ steps.description.outputs.package != null }}
+      working-directory: ./${{ steps.description.outputs.project-name }}
+      run: 'dotnet add package ${{ steps.description.outputs.package }} --version *'
      
-    - name: Generate test project
+    - name: Generate solution
       run: dotnet new sln --name ${{ steps.description.outputs.project-name }}
       
     - name: Add projects to solution
