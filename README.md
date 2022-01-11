@@ -1,13 +1,13 @@
 # NuGet Package Template Repository
 A template repository for NuGet packages.
 
-Add this to the repo comment when creating it:
+Add this to the repo description when creating it:
 
-    ProjectName: MyAwesomeProject.Api
-    Prefix: Meeee
-    Namespace: MyAwesomeProject
-    Description: This project is really awesome!
-    Tags: Awesomeness; Project; 1000
+    ProjectName: MyAwesomeProject.Api,
+    Prefix: Meeee,
+    Namespace: MyAwesomeProject,
+    Description: This project is really awesome!,
+    Tags: Awesomeness; Project; 1000,
     Package: Optional.Package.ToReference
 
 Prefix is merged with ProjectName where needed, like for the package name.
