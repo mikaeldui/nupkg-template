@@ -7,4 +7,4 @@ on:
 jobs:
   codeql:
     name: 'CodeQL'
-    uses: mikaeldui/actions/.workflows/codeql-analysis-csharp.yml@main
+    uses: mikaeldui/actions/.github/workflows/codeql-analysis-csharp.yml@main
