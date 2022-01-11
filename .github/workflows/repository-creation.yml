@@ -1,0 +1,41 @@
+name: Repository Creation
+on: create
+
+jobs:
+  create:
+    name: 'Create content'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the newly created repo
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1.5.0
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Generate solution
+      run: dotnet new sln -n ${{ github.event.repository.name }}
+    
+    - name: Generate project
+      run: dotnet new classlib --name ${{ github.event.repository.name }}
+     
+    - name: Generate test project
+      run: dotnet new mstest --name ${{ github.event.repository.name }}.Tests
+      
+    - name: Add projects to solution
+      run: | 
+        dotnet sln add ${{ github.event.repository.name }}
+        dotnet sln add ${{ github.event.repository.name }}.Tests    
+    
+    - name: Commit files
+      uses: swinton/commit@v2.x
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          path/to/myfile1
+          path/to/myfile2
+          path/to/myfile3
+        commit-message: Committing files
+        ref: refs/heads/my-branch
