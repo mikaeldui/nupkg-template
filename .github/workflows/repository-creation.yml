@@ -40,7 +40,14 @@ jobs:
         grep -RiIl '{{RepositoryUrl}}' | xargs sed -i 's/{{RepositoryUrl}}/${{ github.event.repository.url }}/g'
      
     - name: Fix README.md
-      run: echo "Hello"
+      run: |
+        sed 's/.*<!--//' README.md
+        sed -i.bak 's/-->.*//g' README.md
+        
+    - name: Update description
+      uses: mikaeldui/actions/description@main
+      with:
+        description: ${{ steps.description.outputs.description }}
       
     - name: Add project reference
       if: ${{ steps.description.outputs.package != null }}
