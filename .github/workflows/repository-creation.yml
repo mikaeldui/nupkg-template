@@ -4,7 +4,7 @@ on: push
 jobs:
   create:
     name: 'Create content'
-    if: ${{ github.repository != 'mikaeldui/nupkg-template' }}
+    if: ${{ github.repository != 'mikaeldui/nupkg-template' }} # Don't run it in the template repo! on: create is broken atm.
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the newly created repo
