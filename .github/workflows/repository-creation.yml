@@ -57,6 +57,9 @@ jobs:
         
     - name: Remove this script
       run: rm .github/workflows/repository-creation.yml
+      
+    - name: ls
+      run: ls
     
     - name: Commit files
       uses: swinton/commit@v2.x
