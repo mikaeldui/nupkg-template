@@ -2,23 +2,20 @@ name: .NET
 on:
   push:
     paths:
-    - 'RiotGames.Client/**'    
-    - 'RiotGames.Client.CodeGeneration/**'
+    - '{{RepositoryName}}/**'    
+    - '{{RepositoryName}}.Tests/**'
     - '.github/workflows/*'
     - '.github/actions/**'
   pull_request:
     paths:
-    - 'RiotGames.Client/**'    
-    - 'RiotGames.Client.CodeGeneration/**'
+    - '{{RepositoryName}}/**'    
+    - '{{RepositoryName}}.Tests/**'
     - '.github/workflows/*'
     - '.github/actions/**'
 jobs:
   build:
     name: 'Build & Pack'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: mikaeldui/actions/nupkg/dotnet/build-and-pack@main
+    uses: mikaeldui/actions/.github/workflows/dotnet-build-and-pack.yml@main
 
   nuget-org:
     name: 'NuGet.org'
