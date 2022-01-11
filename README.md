@@ -22,6 +22,7 @@ Contains:
     ├─ README.md
     ├─ SECURITY.md
     ├─ RepositoryName.sln
+    ├─ Icon.png
     
 ## Thanks
 
