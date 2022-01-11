@@ -4,7 +4,7 @@ on: push
 jobs:
   create:
     name: 'Create content'
-    if: ${{ github.repository != "mikaeldui/nupkg-template" }}
+    if: ${{ github.repository != 'mikaeldui/nupkg-template' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout the newly created repo
