@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Checkout the newly created repo
       uses: actions/checkout@v2
-
+      
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -16,19 +16,16 @@ jobs:
         
     - name: Get owner name
       id: name
-      uses: mikaeldui/action/owner-name@main
+      uses: mikaeldui/actions/owner-name@main
         
     - name: Parse project description
       id: description
-      uses: mikaeldui/action/repo-templates/parse-description@main
+      uses: mikaeldui/actions/repo-templates/parse-description@main
         
     - name: Rename files
       run: |
-        rename ProjectName ${{ steps.description.outputs.project-name }} *
-        cd ${{ steps.description.outputs.project-name }}        
-        rename ProjectName ${{ steps.description.outputs.project-name }} *
-        cd ../${{ steps.description.outputs.project-name }}.Tests
-        rename ProjectName ${{ steps.description.outputs.project-name }} *
+        find . -depth -name "*ProjectName*" | \
+        while IFS= read -r ent; do mv $ent ${ent%ProjectName*}${{ steps.description.outputs.project-name }}${ent##*ProjectName}; done
         
     - name: Replace placeholders
       run: |
@@ -38,6 +35,8 @@ jobs:
         grep -RiIl '{{Description}}' | xargs sed -i 's/{{Description}}/${{ steps.description.outputs.description }}/g'
         grep -RiIl '{{Tags}}' | xargs sed -i 's/{{Tags}}/${{ steps.description.outputs.ptags }}/g'
         grep -RiIl '{{Package}}' | xargs sed -i 's/{{Package}}/${{ steps.description.outputs.package }}/g'
+        grep -RiIl '{{OwnerName}}' | xargs sed -i 's/{{Package}}/${{ steps.name.outputs.name }}/g'
+        grep -RiIl '{{RepositoryUrl}}' | xargs sed -i 's/{{Package}}/${{ github.event.repository.url }}/g'
      
     - name: Fix README.md
       run: echo "Hello"
@@ -45,7 +44,7 @@ jobs:
     - name: Add project reference
       if: ${{ steps.description.outputs.package != null }}
       working-directory: ./${{ steps.description.outputs.project-name }}
-      run: 'dotnet add package ${{ steps.description.outputs.package }} --version *'
+      run: 'dotnet add ${{ steps.description.outputs.project-name }}.csproj package ${{ steps.description.outputs.package }} --version "*"'
      
     - name: Generate solution
       run: dotnet new sln --name ${{ steps.description.outputs.project-name }}
@@ -55,19 +54,9 @@ jobs:
         dotnet sln add ${{ steps.description.outputs.project-name }}
         dotnet sln add ${{ steps.description.outputs.project-name }}.Tests    
         
-    - name: Remove this script
+    - name: Remove this workflow
       run: rm .github/workflows/repository-creation.yml
-      
-    - name: ls
-      run: ls
     
-    - name: Commit files
-      uses: swinton/commit@v2.x
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        files: |
-          path/to/myfile1
-          path/to/myfile2
-          path/to/myfile3
-        commit-message: Awesome project is ready!
+        commit_message: 🚀 Your awesome repo is ready!
