@@ -22,18 +22,18 @@ Contains:
     │  │  ├─ codeql-analysis.yml
     │  │  ├─ dotnet.yml
     │  ├─ dependabot.yml
-    ├─ RepositoryName/
-    │  ├─ RepositoryName.csproj
+    ├─ ProjectName/
+    │  ├─ ProjectName.csproj
     │  ├─ Class1.cs
-    ├─ RepositoryName.Tests/
-    │  ├─ RepositoryName.Tests.csproj
+    ├─ ProjectName.Tests/
+    │  ├─ ProjectName.Tests.csproj
     │  ├─ TestClass1.cs
     ├─ .gitignore
-    ├─ LICENSE
+    ├─ LICENSE    
+    ├─ ProjectName.sln
+    ├─ ProjectName.png
     ├─ README.md
     ├─ SECURITY.md
-    ├─ RepositoryName.sln
-    ├─ Icon.png
     
 ## Thanks
 
