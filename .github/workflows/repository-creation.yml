@@ -14,19 +14,45 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    - name: Generate solution
-      run: dotnet new sln -n ${{ github.event.repository.name }}
+    - name: Get owner name
+      id: name
+      uses: mikaeldui/action/owner-name@main
+        
+    - name: Parse project description
+      id: description
+      uses: mikaeldui/action/repo-templates/parse-description@main
+        
+    - name: Rename files
+      run: |
+        rename ProjectName ${{ steps.description.outputs.project-name }} *
+        cd ${{ steps.description.outputs.project-name }}        
+        rename ProjectName ${{ steps.description.outputs.project-name }} *
+        cd ../${{ steps.description.outputs.project-name }}.Tests
+        rename ProjectName ${{ steps.description.outputs.project-name }} *
+        
+    - name: Replace placeholders
+      run: |
+        grep -RiIl '{{ProjectName}}' | xargs sed -i 's/{{ProjectName}}/${{ steps.description.outputs.project-name }}/g'
+        grep -RiIl '{{Prefix}}' | xargs sed -i 's/{{Prefix}}/${{ steps.description.outputs.prefix }}/g'
+        grep -RiIl '{{Namespace}}' | xargs sed -i 's/{{Namespace}}/${{ steps.description.outputs.namespace }}/g'
+        grep -RiIl '{{Description}}' | xargs sed -i 's/{{Description}}/${{ steps.description.outputs.description }}/g'
+        grep -RiIl '{{Tags}}' | xargs sed -i 's/{{Tags}}/${{ steps.description.outputs.ptags }}/g'
+        grep -RiIl '{{Package}}' | xargs sed -i 's/{{Package}}/${{ steps.description.outputs.package }}/g'
+     
+    - name: Fix README.md
+      run: |
     
-    - name: Generate project
-      run: dotnet new classlib --name ${{ github.event.repository.name }}
      
     - name: Generate test project
-      run: dotnet new mstest --name ${{ github.event.repository.name }}.Tests
+      run: dotnet new sln --name ${{ steps.description.outputs.project-name }}
       
     - name: Add projects to solution
       run: | 
-        dotnet sln add ${{ github.event.repository.name }}
-        dotnet sln add ${{ github.event.repository.name }}.Tests    
+        dotnet sln add ${{ steps.description.outputs.project-name }}
+        dotnet sln add ${{ steps.description.outputs.project-name }}.Tests    
+        
+    - name: Remove this script
+      run: rm .github/workflows/repository-creation.yml
     
     - name: Commit files
       uses: swinton/commit@v2.x
@@ -37,5 +63,4 @@ jobs:
           path/to/myfile1
           path/to/myfile2
           path/to/myfile3
-        commit-message: Committing files
-        ref: refs/heads/my-branch
+        commit-message: Awesome project is ready!
