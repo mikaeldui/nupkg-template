@@ -1,8 +1,6 @@
 # NuGet Package Template Repository
 A template repository for NuGet packages.
 
-The repository name will be used when creating the solution, and it's less hassle to change the repo name afterwards than to create everything manually.
-
 `NUGET_ORG_API_KEY` needs to be added as a secret for the `nuget.org` environment.
 
 Contains:
