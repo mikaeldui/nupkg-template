@@ -1,5 +1,6 @@
 name: Repository Creation
-on: create
+on: 
+  create:
 
 jobs:
   create:
