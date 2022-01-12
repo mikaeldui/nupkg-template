@@ -1,5 +1,5 @@
 name: Repository Creation
-on: push
+on: push # on: create is broken right now
 
 jobs:
   create:
