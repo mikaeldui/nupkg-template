@@ -1,23 +1,12 @@
 name: .NET
 on:
   push:
-    paths:
-    - '{{ProjectName}}/**'    
-    - '{{ProjectName}}.Tests/**'
-    - '.github/workflows/*'
-    - '.github/actions/**'
   pull_request:
-    paths:
-    - '{{ProjectName}}/**'    
-    - '{{ProjectName}}.Tests/**'
-    - '.github/workflows/*'
-    - '.github/actions/**'
+  
 jobs:
   build:
     name: 'Build & Pack'
     uses: mikaeldui/actions/.github/workflows/dotnet-build-and-pack.yml@main
-    with:
-      project_directory: ./{{ProjectName}}
 
   nuget-org:
     name: 'NuGet.org'
