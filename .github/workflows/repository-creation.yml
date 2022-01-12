@@ -37,7 +37,7 @@ jobs:
         grep -RiIl '{{Tags}}' | xargs sed -i 's/{{Tags}}/${{ steps.description.outputs.ptags }}/g'
         grep -RiIl '{{Package}}' | xargs sed -i 's/{{Package}}/${{ steps.description.outputs.package }}/g'
         grep -RiIl '{{OwnerName}}' | xargs sed -i 's/{{OwnerName}}/${{ steps.name.outputs.name }}/g'
-        grep -RiIl '{{RepositoryUrl}}' | xargs sed -i 's/{{RepositoryUrl}}/${{ github.event.repository.url }}/g'
+        grep -RiIl '{{RepositoryUrl}}' | xargs sed -i 's+{{RepositoryUrl}}+${{ github.event.repository.url }}+g'
      
     - name: Fix README.md
       run: |
