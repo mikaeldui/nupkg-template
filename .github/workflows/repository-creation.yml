@@ -42,7 +42,7 @@ jobs:
     - name: Fix README.md
       run: |
         sed 's/.*<!--//' README.md
-        sed -i.bak 's/-->.*//g' README.md
+        sed 's/-->.*//g' README.md
       
     - name: Add project reference
       if: ${{ steps.description.outputs.package != null }}
