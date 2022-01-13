@@ -12,7 +12,7 @@
     <Description>{{Description}}</Description>
     <PackageProjectUrl>{{RepositoryUrl}}</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIcon>{{ProjectName}}.png</PackageIcon>
     <RepositoryUrl>{{RepositoryUrl}}</RepositoryUrl>
     <PackageTags>{{Tags}}</PackageTags>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
