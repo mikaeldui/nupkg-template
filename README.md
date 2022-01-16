@@ -14,7 +14,9 @@ Prefix is merged with ProjectName where needed, like for the package name.
 
 `NUGET_ORG_API_KEY` needs to be added as a secret for the `nuget.org` environment.
 
-Contains:
+The repo description must be manually changed afterwards since the workflow doesn't have permission to change it for you.
+
+## Contains
 
     root/
     ├─ .github/
