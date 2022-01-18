@@ -1,7 +1,7 @@
 # NuGet Package Template Repository
 A template repository for NuGet packages.
 
-Add this to the repo description when creating it:
+Add this to the repo description when creating it: (", " is special)
 
     ProjectName: MyAwesomeProject.Api,
     Prefix: Meeee,
