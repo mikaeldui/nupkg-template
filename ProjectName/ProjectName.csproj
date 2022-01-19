@@ -16,6 +16,7 @@
     <RepositoryUrl>{{RepositoryUrl}}</RepositoryUrl>
     <PackageTags>{{Tags}}</PackageTags>
     <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    <AssemblyName>{{Prefix}}.{{ProjectName}}</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
